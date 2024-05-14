@@ -28,7 +28,6 @@ public class Customer {
 
     private String city;
 
-    @ManyToOne
-    @JoinColumn(name = "animal_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "customer")
     private List<Animal> animals;
 }

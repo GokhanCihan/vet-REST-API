@@ -33,6 +33,7 @@ public class Animal {
     @Column(nullable = false)
     private LocalDate dateOfBirth;
 
-    @OneToMany(mappedBy = "animal")
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 }
