@@ -1,4 +1,4 @@
-package gokhancihan.dto.response;
+package gokhancihan.vet.dto.response;
 
 import gokhancihan.vet.entity.Animal;
 import lombok.Data;

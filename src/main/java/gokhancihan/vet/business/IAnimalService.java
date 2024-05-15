@@ -1,7 +1,7 @@
-package gokhancihan.business;
+package gokhancihan.vet.business;
 
-import gokhancihan.dto.request.AnimalRequest;
-import gokhancihan.dto.response.AnimalResponse;
+import gokhancihan.vet.dto.request.AnimalRequest;
+import gokhancihan.vet.dto.response.AnimalResponse;
 
 import java.util.List;
 

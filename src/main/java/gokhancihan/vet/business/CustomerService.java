@@ -1,11 +1,11 @@
-package gokhancihan.business;
+package gokhancihan.vet.business;
 
-import gokhancihan.dto.request.CustomerRequest;
-import gokhancihan.dto.response.CustomerResponse;
-import gokhancihan.repository.CustomerRepository;
-import gokhancihan.utility.exception.NotFoundException;
-import gokhancihan.utility.exception.RedundantDataException;
-import gokhancihan.utility.mapper.CustomerMapper;
+import gokhancihan.vet.dto.request.CustomerRequest;
+import gokhancihan.vet.dto.response.CustomerResponse;
+import gokhancihan.vet.repository.CustomerRepository;
+import gokhancihan.vet.utility.exception.NotFoundException;
+import gokhancihan.vet.utility.exception.RedundantDataException;
+import gokhancihan.vet.utility.mapper.CustomerMapper;
 import gokhancihan.vet.entity.Customer;
 import org.springframework.stereotype.Service;
 

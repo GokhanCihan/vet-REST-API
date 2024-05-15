@@ -1,5 +1,6 @@
-package gokhancihan.dto.request;
+package gokhancihan.vet.dto.response;
 
+import gokhancihan.vet.entity.Customer;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -7,7 +8,7 @@ import java.time.LocalDate;
 
 @Data
 @RequiredArgsConstructor
-public class AnimalRequest {
+public class AnimalResponse {
 
     private String name;
 
@@ -21,5 +22,4 @@ public class AnimalRequest {
 
     private LocalDate dateOfBirth;
 
-    private Long customerId;
 }

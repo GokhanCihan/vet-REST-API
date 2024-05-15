@@ -1,4 +1,4 @@
-package gokhancihan.dto.request;
+package gokhancihan.vet.dto.request;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

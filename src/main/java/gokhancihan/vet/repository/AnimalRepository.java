@@ -1,4 +1,4 @@
-package gokhancihan.repository;
+package gokhancihan.vet.repository;
 
 import gokhancihan.vet.entity.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
