@@ -3,6 +3,7 @@ package gokhancihan.vet.api;
 import gokhancihan.vet.business.ICustomerService;
 import gokhancihan.vet.dto.request.CustomerRequest;
 import gokhancihan.vet.dto.response.CustomerResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,12 +32,12 @@ public class CustomerController {
     }
 
     @PostMapping()
-    public CustomerResponse create(CustomerRequest customerRequest) {
+    public CustomerResponse create(@Valid @RequestBody CustomerRequest customerRequest) {
         return this.customerService.create(customerRequest);
     }
 
     @PutMapping("/{id}")
-    public CustomerResponse update(@PathVariable("id") Long id, CustomerRequest customerRequest) {
+    public CustomerResponse update(@PathVariable("id") Long id, @Valid @RequestBody CustomerRequest customerRequest) {
         return this.customerService.update(id, customerRequest);
     }
 
