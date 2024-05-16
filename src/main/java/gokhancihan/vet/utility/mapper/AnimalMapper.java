@@ -17,7 +17,7 @@ public interface AnimalMapper {
 
     AnimalResponse toResponse(Animal animal);
 
-    @Mapping(target = "customer", source = "customerId")
+    @Mapping(target = "customer.id", source = "customerId")
     Animal fromRequest(AnimalRequest animalRequest);
 
     List<AnimalResponse> toResponses(List<Animal> animals);

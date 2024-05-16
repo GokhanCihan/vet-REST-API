@@ -53,22 +53,40 @@ public class AnimalService implements IAnimalService {
     @Override
     public AnimalResponse create(AnimalRequest animalRequest) {
         Optional<Animal> animalFromDb = animalRepository.findByNameAndCustomerId(animalRequest.getName(), animalRequest.getCustomerId());
+        Optional<Customer> customerFromDb = customerRepository.findById(animalRequest.getCustomerId());
         if (animalFromDb.isPresent()) {
             throw new RedundantDataException("Animal data redundant!");
         }
-        Animal animal = AnimalMapper.MAPPER.fromRequest(animalRequest);
-        return AnimalMapper.MAPPER.toResponse(animalRepository.save(animal));
+        if (customerFromDb.isEmpty()) {
+            throw new NotFoundException("Customer with id = " + animalRequest.getCustomerId() + "not found!");
+        }
+        Animal animalToSave = AnimalMapper.MAPPER.fromRequest(animalRequest);
+        animalToSave.setCustomer(customerFromDb.get());
+        System.out.println("animal from request:\n" + animalToSave);
+        animalRepository.save(animalToSave);
+        Optional<Animal> savedAnimalFromDb = animalRepository.findByNameAndCustomerId(
+                animalRequest.getName(), animalRequest.getCustomerId());
+        if (savedAnimalFromDb.isEmpty()){
+            throw new NotFoundException("Saved animal couldn't found or save failed");
+        }
+        return AnimalMapper.MAPPER.toResponse(savedAnimalFromDb.get());
     }
 
     @Override
     public AnimalResponse update(Long id, AnimalRequest animalRequest) {
         Optional<Animal> animalFromDb = animalRepository.findById(id);
+        Optional<Customer> customerFromDb = customerRepository.findById(animalRequest.getCustomerId());
         if (animalFromDb.isEmpty()) {
             throw new NotFoundException("No animal with id = " + id + " found!");
         }
-        Animal animal = animalFromDb.get();
-        AnimalMapper.MAPPER.update(animal, animalRequest);
-        return AnimalMapper.MAPPER.toResponse(animalRepository.save(animal));
+        if (customerFromDb.isEmpty()) {
+            throw new NotFoundException("Customer with id = " + animalRequest.getCustomerId() + "not found!");
+        }
+        Animal animalToUpdate = animalFromDb.get();
+        AnimalMapper.MAPPER.update(animalToUpdate, animalRequest);
+        animalRepository.save(animalToUpdate);
+        Optional<Animal> updatedAnimalFromDb = animalRepository.findById(id);
+        return AnimalMapper.MAPPER.toResponse(updatedAnimalFromDb.get());
     }
 
     @Override

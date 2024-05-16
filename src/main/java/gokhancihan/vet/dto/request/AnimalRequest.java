@@ -32,7 +32,6 @@ public class AnimalRequest {
     private String colour;
 
     @NotNull
-    @NotEmpty
     private LocalDate dateOfBirth;
 
     @NotNull(message = "customerId field required!")
