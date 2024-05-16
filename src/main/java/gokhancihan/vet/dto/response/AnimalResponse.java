@@ -22,5 +22,4 @@ public class AnimalResponse {
     private String colour;
 
     private LocalDate dateOfBirth;
-
 }

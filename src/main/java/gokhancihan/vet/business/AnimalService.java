@@ -9,6 +9,7 @@ import gokhancihan.vet.utility.exception.RedundantDataException;
 import gokhancihan.vet.utility.mapper.AnimalMapper;
 import gokhancihan.vet.entity.Animal;
 import gokhancihan.vet.entity.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,23 +17,25 @@ import java.util.Optional;
 
 @Service
 public class AnimalService implements IAnimalService {
-    private final AnimalRepository animalRepository;
-    private final CustomerRepository customerRepository;
 
-    public AnimalService(AnimalRepository animalRepository, CustomerRepository customerRepository) {
-        this.animalRepository = animalRepository;
-        this.customerRepository = customerRepository;
-    }
+    @Autowired
+    private AnimalRepository animalRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private AnimalMapper animalMapper;
 
     @Override
     public AnimalResponse getById(Long id) {
-        return AnimalMapper.MAPPER.toResponse(animalRepository.findById(id)
+        return animalMapper.toResponse(animalRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("No animal with id = " + id + " found!")));
     }
 
     @Override
     public AnimalResponse getByName(String name) {
-        return AnimalMapper.MAPPER.toResponse(animalRepository.findByName(name)
+        return animalMapper.toResponse(animalRepository.findByName(name)
                 .orElseThrow(() -> new NotFoundException("No animal with name = " + name + " found!")));
     }
 
@@ -42,12 +45,12 @@ public class AnimalService implements IAnimalService {
         if (customerFromDb.isEmpty()) {
             throw new NotFoundException("No customer with name = " + customerName + " found!");
         }
-        return AnimalMapper.MAPPER.toResponses(animalRepository.findByCustomerId(customerFromDb.get().getId()));
+        return animalMapper.toResponses(animalRepository.findByCustomerId(customerFromDb.get().getId()));
     }
 
     @Override
     public List<AnimalResponse> getAll() {
-        return AnimalMapper.MAPPER.toResponses(animalRepository.findAll());
+        return animalMapper.toResponses(animalRepository.findAll());
     }
 
     @Override
@@ -60,7 +63,7 @@ public class AnimalService implements IAnimalService {
         if (customerFromDb.isEmpty()) {
             throw new NotFoundException("Customer with id = " + animalRequest.getCustomerId() + "not found!");
         }
-        Animal animalToSave = AnimalMapper.MAPPER.fromRequest(animalRequest);
+        Animal animalToSave = animalMapper.fromRequest(animalRequest);
         animalToSave.setCustomer(customerFromDb.get());
         System.out.println("animal from request:\n" + animalToSave);
         animalRepository.save(animalToSave);
@@ -69,7 +72,7 @@ public class AnimalService implements IAnimalService {
         if (savedAnimalFromDb.isEmpty()){
             throw new NotFoundException("Saved animal couldn't found or save failed");
         }
-        return AnimalMapper.MAPPER.toResponse(savedAnimalFromDb.get());
+        return animalMapper.toResponse(savedAnimalFromDb.get());
     }
 
     @Override
@@ -83,10 +86,10 @@ public class AnimalService implements IAnimalService {
             throw new NotFoundException("Customer with id = " + animalRequest.getCustomerId() + "not found!");
         }
         Animal animalToUpdate = animalFromDb.get();
-        AnimalMapper.MAPPER.update(animalToUpdate, animalRequest);
+        animalMapper.update(animalToUpdate, animalRequest);
         animalRepository.save(animalToUpdate);
         Optional<Animal> updatedAnimalFromDb = animalRepository.findById(id);
-        return AnimalMapper.MAPPER.toResponse(updatedAnimalFromDb.get());
+        return animalMapper.toResponse(updatedAnimalFromDb.get());
     }
 
     @Override
