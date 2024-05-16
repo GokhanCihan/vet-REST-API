@@ -13,8 +13,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
 
-    CustomerMapper MAPPER = Mappers.getMapper(CustomerMapper.class);
-
     @Mapping(target = "id", source = "id")
     CustomerResponse toResponse(Customer customer);
 
