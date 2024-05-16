@@ -44,7 +44,14 @@ public class CustomerService implements ICustomerService {
         if (customerFromDb.isPresent()) {
             throw new RedundantDataException("Customer data redundant!");
         }
-        return CustomerMapper.MAPPER.toResponse(customerFromDb.get());
+        Customer customerToSave = CustomerMapper.MAPPER.fromRequest(customerRequest);
+        customerRepository.save(customerToSave);
+        Optional<Customer> savedCustomerFromDb = customerRepository
+                .findByNameAndMail(customerRequest.getName(), customerRequest.getMail());
+        if (savedCustomerFromDb.isEmpty()){
+            throw new RuntimeException("Couldn't fetch saved customer or save unsuccessful!");
+        }
+        return CustomerMapper.MAPPER.toResponse(savedCustomerFromDb.get());
     }
 
     @Override
@@ -55,7 +62,14 @@ public class CustomerService implements ICustomerService {
         }
         Customer customer = customerFromDb.get();
         CustomerMapper.MAPPER.update(customer, customerRequest);
-        return CustomerMapper.MAPPER.toResponse(customerRepository.save(customer));
+        customerRepository.save(customer);
+        Optional<Customer> updatedCustomerFromDb = customerRepository
+                .findByNameAndMail(customerRequest.getName(), customerRequest.getMail());
+        if (updatedCustomerFromDb.isEmpty()){
+            throw new RuntimeException("Couldn't fetch saved customer or update unsuccessful!");
+        }
+        customer.setId(updatedCustomerFromDb.get().getId());
+        return CustomerMapper.MAPPER.toResponse(customer);
     }
 
     @Override
