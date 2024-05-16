@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "animal_id")
     private Long id;
 
     @Column(nullable = false)
@@ -34,6 +35,6 @@ public class Animal {
     private LocalDate dateOfBirth;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     private Customer customer;
 }
