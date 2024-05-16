@@ -38,11 +38,11 @@ public class AnimalService implements IAnimalService {
 
     @Override
     public List<AnimalResponse> getAllByCustomerName(String customerName) {
-        Optional<Customer> customer = customerRepository.findByName(customerName);
-        if (customer.isEmpty()) {
+        Optional<Customer> customerFromDb = customerRepository.findByName(customerName);
+        if (customerFromDb.isEmpty()) {
             throw new NotFoundException("No customer with name = " + customerName + " found!");
         }
-        return AnimalMapper.MAPPER.toResponses(animalRepository.findByCustomerId(customer.get().getId()));
+        return AnimalMapper.MAPPER.toResponses(animalRepository.findByCustomerId(customerFromDb.get().getId()));
     }
 
     @Override
