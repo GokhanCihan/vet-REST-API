@@ -1,5 +1,6 @@
 package gokhancihan.vet.dto.response;
 
+import gokhancihan.vet.entity.Customer;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -22,4 +23,6 @@ public class AnimalResponse {
     private String colour;
 
     private LocalDate dateOfBirth;
+
+    private CustomerResponse customer;
 }

@@ -24,7 +24,4 @@ public class CustomerResponse {
 
     private String city;
 
-    @JsonIgnore
-    private Customer customer;
-
 }

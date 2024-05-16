@@ -13,6 +13,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = CustomerMapper.class)
 public interface AnimalMapper {
 
+    @Mapping(target = "customer", source = "customer")
     AnimalResponse toResponse(Animal animal);
 
     @Mapping(target = "customer.id", source = "customerId")
