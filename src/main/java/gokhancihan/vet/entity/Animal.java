@@ -32,6 +32,7 @@ public class Animal {
     private String colour;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private LocalDate dateOfBirth;
 
     @ManyToOne

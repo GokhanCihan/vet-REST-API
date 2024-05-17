@@ -24,9 +24,11 @@ public class Vaccine {
     private String code;
 
     @Column(name = "protection_start_date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private LocalDate protectionStartDate;
 
     @Column(name = "protection_end_date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private LocalDate protectionEndDate;
 
     @ManyToOne
