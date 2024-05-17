@@ -14,7 +14,7 @@ public interface IVaccineService {
 
     List<VaccineResponse> getAllByAnimalId(Long animalId);
 
-    List<VaccineResponse> getAllByProtectionDates(LocalDate startDate, LocalDate endDate);
+    List<VaccineResponse> getAllByProtectionDate(LocalDate startDate, LocalDate endDate);
 
     VaccineResponse create(VaccineRequest vaccineRequest);
 
