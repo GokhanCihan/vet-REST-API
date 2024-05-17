@@ -7,6 +7,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/vaccine")
 public class VaccineController {
@@ -19,6 +22,23 @@ public class VaccineController {
         return vaccineService.getById(id);
     }
 
+    @GetMapping("/all")
+    public List<VaccineResponse> getAll(){
+        return vaccineService.getAll();
+    }
+
+    @GetMapping("/animalId={animalId}")
+    public List<VaccineResponse> getAllByAnimalId(@PathVariable("animalId") Long animalId) {
+        return vaccineService.getAllByAnimalId(animalId);
+    }
+
+    @GetMapping("/protection/{startDate}&{endDate}")
+    public List<VaccineResponse> getAllByProtectionDate(
+            @PathVariable("startDate") LocalDate startDate,
+            @PathVariable("endDate") LocalDate endDate) {
+        return vaccineService.getAllByProtectionDate(startDate, endDate);
+    }
+
     @PostMapping()
     public VaccineResponse create(@Valid @RequestBody VaccineRequest vaccineRequest) {
         return vaccineService.create(vaccineRequest);
@@ -27,5 +47,10 @@ public class VaccineController {
     @PutMapping("/{id}")
     public VaccineResponse update(@PathVariable("id") Long id, @Valid @RequestBody VaccineRequest vaccineRequest) {
         return vaccineService.update(id, vaccineRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        vaccineService.delete(id);
     }
 }
