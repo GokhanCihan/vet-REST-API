@@ -4,6 +4,7 @@ import gokhancihan.vet.entity.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,5 +14,5 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
     List<Animal> findByCustomerId(Long id);
 
-    Optional<Animal> findByNameAndCustomerId(String name, Long customerId);
+    Optional<Animal> findByNameAndSpeciesAndDateOfBirth(String name, String Species, LocalDate dateOfBirth);
 }
