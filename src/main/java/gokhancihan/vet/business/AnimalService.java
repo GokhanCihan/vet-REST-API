@@ -55,7 +55,7 @@ public class AnimalService implements IAnimalService {
 
     @Override
     public AnimalResponse create(AnimalRequest animalRequest) {
-        Optional<Animal> animalFromDb = animalRepository.findByNameAndCustomerId(animalRequest.getName(), animalRequest.getCustomerId());
+        Optional<Animal> animalFromDb = animalRepository.findByNameAndSpeciesAndDateOfBirth(animalRequest.getName(), animalRequest.getSpecies(), animalRequest.getDateOfBirth());
         Optional<Customer> customerFromDb = customerRepository.findById(animalRequest.getCustomerId());
         if (animalFromDb.isPresent()) {
             throw new RedundantDataException("Animal data redundant!");
@@ -66,9 +66,9 @@ public class AnimalService implements IAnimalService {
         Animal animalToSave = animalMapper.fromRequest(animalRequest);
         animalToSave.setCustomer(customerFromDb.get());
         animalRepository.save(animalToSave);
-        Optional<Animal> savedAnimalFromDb = animalRepository.findByNameAndCustomerId(
-                animalRequest.getName(), animalRequest.getCustomerId());
-        if (savedAnimalFromDb.isEmpty()){
+        Optional<Animal> savedAnimalFromDb = animalRepository.findByNameAndSpeciesAndDateOfBirth(
+                animalRequest.getName(), animalRequest.getSpecies(), animalRequest.getDateOfBirth());
+        if (savedAnimalFromDb.isEmpty()) {
             throw new NotFoundException("Saved animal couldn't found or save failed");
         }
         return animalMapper.toResponse(savedAnimalFromDb.get());
