@@ -50,7 +50,7 @@ public class VaccineService implements IVaccineService {
     @Override
     public VaccineResponse create(VaccineRequest vaccineRequest) {
         Optional<Animal> animalFromDb = animalRepository.findById(vaccineRequest.getAnimalId());
-        Optional<Vaccine> filteredVaccineFromDb = vaccineRepository
+        Optional<Vaccine> vaccineFromDb = vaccineRepository
                 .findByAnimalIdAndNameAndCodeAndProtectionStartDateGreaterThanEqualAndProtectionEndDateGreaterThanEqual(
                         vaccineRequest.getAnimalId(), vaccineRequest.getName(), vaccineRequest.getCode(),
                         vaccineRequest.getProtectionStartDate(), vaccineRequest.getProtectionStartDate()
@@ -58,9 +58,9 @@ public class VaccineService implements IVaccineService {
         if (animalFromDb.isEmpty()) {
             throw new NotFoundException("Animal with id = " + vaccineRequest.getAnimalId() + " not found");
         }
-        if (filteredVaccineFromDb.isPresent()) {
+        if (vaccineFromDb.isPresent()) {
             throw new RedundantDataException(
-                    "Animal is already protected by the vaccine " + vaccineRequest.getName() + "-" + vaccineRequest.getCode() +
+                    "Animal is already protected by the " + vaccineRequest.getName() + "-" + vaccineRequest.getCode() +
                             " until " + vaccineRequest.getProtectionEndDate());
         }
         Vaccine vaccineToSave = vaccineMapper.fromRequest(vaccineRequest);
@@ -81,11 +81,21 @@ public class VaccineService implements IVaccineService {
     public VaccineResponse update(Long id, VaccineRequest vaccineRequest) {
         Optional<Vaccine> vaccineFromDb = vaccineRepository.findById(id);
         Optional<Animal> animalFromDb = animalRepository.findById(vaccineRequest.getAnimalId());
+        Optional<Vaccine> filteredVaccineFromDb = vaccineRepository
+                .findByAnimalIdAndNameAndCodeAndProtectionStartDateGreaterThanEqualAndProtectionEndDateGreaterThanEqual(
+                        vaccineRequest.getAnimalId(), vaccineRequest.getName(), vaccineRequest.getCode(),
+                        vaccineRequest.getProtectionStartDate(), vaccineRequest.getProtectionStartDate()
+                );
         if (vaccineFromDb.isEmpty()) {
             throw new NotFoundException("Vaccine with id = " + id + "not found!");
         }
         if (animalFromDb.isEmpty()) {
             throw new NotFoundException("Animal with id = " + vaccineRequest.getAnimalId() + " not found!");
+        }
+        if (filteredVaccineFromDb.isPresent()) {
+            throw new RedundantDataException(
+                    "Animal is already protected by the " + vaccineRequest.getName() + "-" + vaccineRequest.getCode() +
+                            " until " + vaccineRequest.getProtectionEndDate());
         }
         Vaccine vaccineToUpdate = vaccineFromDb.get();
         vaccineMapper.update(vaccineToUpdate, vaccineRequest);
