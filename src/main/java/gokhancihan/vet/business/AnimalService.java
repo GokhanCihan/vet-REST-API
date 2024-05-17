@@ -65,7 +65,6 @@ public class AnimalService implements IAnimalService {
         }
         Animal animalToSave = animalMapper.fromRequest(animalRequest);
         animalToSave.setCustomer(customerFromDb.get());
-        System.out.println("animal from request:\n" + animalToSave);
         animalRepository.save(animalToSave);
         Optional<Animal> savedAnimalFromDb = animalRepository.findByNameAndCustomerId(
                 animalRequest.getName(), animalRequest.getCustomerId());

@@ -13,6 +13,7 @@ import java.util.List;
 public interface VaccineMapper {
 
     @Mapping(target = "animal", source = "animal")
+    @Mapping(target = "animal.customer", ignore = true)
     VaccineResponse toResponse(Vaccine vaccine);
 
     @Mapping(target = "animal.id", source = "animalId")
