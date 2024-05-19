@@ -2,6 +2,7 @@ package gokhancihan.vet.business;
 
 import gokhancihan.vet.dto.request.AvailableDateRequest;
 import gokhancihan.vet.dto.response.AvailableDateResponse;
+import gokhancihan.vet.dto.response.VeterinarianResponse;
 import gokhancihan.vet.entity.AvailableDate;
 import gokhancihan.vet.repository.AvailableDateRepository;
 import gokhancihan.vet.utility.exception.NotFoundException;
@@ -51,6 +52,15 @@ public class AvailableDateService implements IAvailableDateService {
         return availableDateMapper.toResponse(savedDateFromDb.get());
     }
 
+    @Override
+    public AvailableDateResponse createFor(Long veterinarianId, AvailableDateRequest availableDateRequest) {
+        return null;
+    }
+
+    @Override
+    public AvailableDateResponse deleteFrom(Long veterinarianId, AvailableDateRequest availableDateRequest) {
+        return null;
+    }
     @Override
     public AvailableDateResponse update(Long id, AvailableDateRequest availableDateRequest) {
         Optional<AvailableDate> dateFromDb = availableDateRepository.findById(id);

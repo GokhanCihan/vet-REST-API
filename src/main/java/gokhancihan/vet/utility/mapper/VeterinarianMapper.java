@@ -16,7 +16,7 @@ public interface VeterinarianMapper {
     @Mapping(target = "availableDates", source = "availableDates")
     VeterinarianResponse toResponse(Veterinarian veterinarian);
 
-    Veterinarian fromRequest(VaccineRequest vaccineRequest);
+    Veterinarian fromRequest(VeterinarianRequest veterinarianRequest);
 
     List<VeterinarianResponse> toResponses(List<Veterinarian> veterinarians);
 
