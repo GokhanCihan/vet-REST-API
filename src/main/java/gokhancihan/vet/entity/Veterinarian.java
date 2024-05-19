@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -39,4 +40,20 @@ public class Veterinarian {
     )
     private Set<AvailableDate> availableDates;
 
+    public void addAvailableDate(AvailableDate availableDate) {
+        this.availableDates.add(availableDate);
+        availableDate.getVeterinarians().add(this);
+    }
+
+    public void removeAvailableDate(Long availableDateId) {
+        AvailableDate availableDate = this.availableDates.stream()
+                .filter(date -> date.getId() == availableDateId).findFirst()
+                .orElse(null);
+        if (availableDate != null) {
+            this.availableDates.remove(availableDate);
+            availableDate.getVeterinarians().remove(this);
+        }
+    }
+
+    ;
 }
