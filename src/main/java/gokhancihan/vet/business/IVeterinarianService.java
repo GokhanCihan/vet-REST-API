@@ -16,8 +16,11 @@ public interface IVeterinarianService {
 
     VeterinarianResponse create(VeterinarianRequest veterinarianRequest);
 
+    // Add existing date to existing veterinarian
+    // Create new available date if not exists
     VeterinarianResponse createFor(Long veterinarianId, AvailableDateRequest availableDateRequest);
 
+    // Remove an available date from veterinarian
     VeterinarianResponse deleteFrom(Long veterinarianId, AvailableDateRequest availableDateRequest);
 
     VeterinarianResponse update(Long id, VeterinarianRequest veterinarianRequest);
