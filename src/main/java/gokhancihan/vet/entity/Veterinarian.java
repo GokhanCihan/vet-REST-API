@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -33,11 +34,9 @@ public class Veterinarian {
 
     @ManyToMany
     @JoinTable(name = "veterinarians_available_dates",
-            joinColumns =
-                    {@JoinColumn(name = "veterinarian_id")},
-            inverseJoinColumns =
-                    {@JoinColumn(name = "available_date_id")}
+            joinColumns = {@JoinColumn(name = "veterinarian_id")},
+            inverseJoinColumns = {@JoinColumn(name = "available_date_id")}
     )
-    private List<AvailableDate> availableDates;
+    private Set<AvailableDate> availableDates;
 
 }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -23,5 +24,5 @@ public class AvailableDate {
 
     @ManyToMany(mappedBy = "availableDates")
     @JsonIgnore
-    private List<Veterinarian> veterinarians;
+    private Set<Veterinarian> veterinarians;
 }
