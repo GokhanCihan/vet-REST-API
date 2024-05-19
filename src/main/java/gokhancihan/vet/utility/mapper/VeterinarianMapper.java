@@ -14,6 +14,7 @@ import java.util.List;
 public interface VeterinarianMapper {
 
     @Mapping(target = "availableDates", source = "availableDates")
+    @Mapping(target = "availableDates.veterinarians", ignore = true)
     VeterinarianResponse toResponse(Veterinarian veterinarian);
 
     Veterinarian fromRequest(VeterinarianRequest veterinarianRequest);

@@ -3,14 +3,13 @@ package gokhancihan.vet.api;
 import gokhancihan.vet.business.IAvailableDateService;
 import gokhancihan.vet.dto.request.AvailableDateRequest;
 import gokhancihan.vet.dto.response.AvailableDateResponse;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/available_date")
+@RequestMapping("/v1/availableDate")
 public class AvailableDateController {
 
     @Autowired
@@ -26,15 +25,14 @@ public class AvailableDateController {
         return availableDateService.getAll();
     }
 
-    @PostMapping()
+    @PostMapping
     public AvailableDateResponse create(@RequestBody AvailableDateRequest availableDateRequest) {
         return availableDateService.create(availableDateRequest);
     }
 
     @PutMapping("/{id}")
-    public AvailableDateResponse update(
-            @PathVariable("id") Long id,
-            @RequestBody AvailableDateRequest availableDateRequest) {
+    public AvailableDateResponse update(@PathVariable("id") Long id,
+                                        @RequestBody AvailableDateRequest availableDateRequest) {
         return availableDateService.update(id, availableDateRequest);
     }
 

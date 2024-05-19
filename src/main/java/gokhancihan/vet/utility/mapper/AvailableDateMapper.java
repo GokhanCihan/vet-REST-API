@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = VeterinarianMapper.class)
 public interface AvailableDateMapper {
 
-    @Mapping(target = "veterinarians", source = "veterinarians")
+    @Mapping(target = "id", source = "id")
     AvailableDateResponse toResponse(AvailableDate availableDate);
 
     AvailableDate fromRequest(AvailableDateRequest availableDateRequest);

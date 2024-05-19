@@ -1,14 +1,15 @@
 package gokhancihan.vet.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "veterinarians")
 @RequiredArgsConstructor
@@ -33,27 +34,16 @@ public class Veterinarian {
     @Column(nullable = false)
     private String city;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "veterinarians_available_dates",
             joinColumns = {@JoinColumn(name = "veterinarian_id")},
             inverseJoinColumns = {@JoinColumn(name = "available_date_id")}
     )
+    @JsonManagedReference
     private Set<AvailableDate> availableDates;
 
     public void addAvailableDate(AvailableDate availableDate) {
         this.availableDates.add(availableDate);
-        availableDate.getVeterinarians().add(this);
     }
 
-    public void removeAvailableDate(Long availableDateId) {
-        AvailableDate availableDate = this.availableDates.stream()
-                .filter(date -> date.getId() == availableDateId).findFirst()
-                .orElse(null);
-        if (availableDate != null) {
-            this.availableDates.remove(availableDate);
-            availableDate.getVeterinarians().remove(this);
-        }
-    }
-
-    ;
 }

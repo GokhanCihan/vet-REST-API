@@ -1,5 +1,6 @@
 package gokhancihan.vet.business;
 
+import gokhancihan.vet.dto.request.AvailableDateRequest;
 import gokhancihan.vet.dto.request.VeterinarianRequest;
 import gokhancihan.vet.dto.response.VeterinarianResponse;
 import gokhancihan.vet.entity.AvailableDate;
@@ -69,6 +70,22 @@ public class VeterinarianService implements IVeterinarianService {
         vetRepository.save(vet);
         vet.setId(vetFromDb.getId());
         return vetMapper.toResponse(vet);
+    }
+
+    @Override
+    public VeterinarianResponse addAvailableDate(Long veterinarianId, Long availableDateId) {
+        AvailableDate dateFromDb = availableDateRepository.findById(availableDateId)
+                .orElseThrow(() -> new NotFoundException("Available date not found!"));
+        Veterinarian veterinarian = vetRepository.findById(veterinarianId)
+                .orElseThrow(() -> new NotFoundException("Available date not found!"));
+        veterinarian.addAvailableDate(dateFromDb);
+        vetRepository.save(veterinarian);
+        return vetMapper.toResponse(veterinarian);
+    }
+
+    @Override
+    public VeterinarianResponse deleteFrom(Long veterinarianId, AvailableDateRequest availableDateRequest) {
+        return null;
     }
 
     @Override
