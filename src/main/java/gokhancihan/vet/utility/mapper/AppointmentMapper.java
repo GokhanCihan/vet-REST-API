@@ -19,8 +19,8 @@ public interface AppointmentMapper {
     @Mapping(target = "veterinarian.id", source = "veterinarianId")
     Appointment fromRequest(AppointmentRequest appointmentRequest);
 
-    List<AnimalResponse> toResponses(List<Animal> animals);
+    List<AppointmentResponse> toResponses(List<Appointment> appointments);
 
-    void update(@MappingTarget Animal animal, AnimalRequest animalRequest);
+    void update(@MappingTarget Appointment appointment, AppointmentRequest appointmentRequest);
 
 }
