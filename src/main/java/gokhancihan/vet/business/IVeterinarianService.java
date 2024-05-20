@@ -23,7 +23,7 @@ public interface IVeterinarianService {
     VeterinarianResponse addAvailableDate(Long veterinarianId, Long availableDateId);
 
     // Remove an available date from veterinarian
-    VeterinarianResponse deleteFrom(Long veterinarianId, AvailableDateRequest availableDateRequest);
+    VeterinarianResponse removeAvailableDate(Long veterinarianId, Long availableDateId);
 
     void delete(Long id);
 

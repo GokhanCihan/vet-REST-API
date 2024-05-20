@@ -84,8 +84,14 @@ public class VeterinarianService implements IVeterinarianService {
     }
 
     @Override
-    public VeterinarianResponse deleteFrom(Long veterinarianId, AvailableDateRequest availableDateRequest) {
-        return null;
+    public VeterinarianResponse removeAvailableDate(Long veterinarianId, Long availableDateId) {
+        AvailableDate dateFromDb = availableDateRepository.findById(availableDateId)
+                .orElseThrow(() -> new NotFoundException("Available date not found!"));
+        Veterinarian veterinarian = vetRepository.findById(veterinarianId)
+                .orElseThrow(() -> new NotFoundException("Available date not found!"));
+        veterinarian.removeAvailableDate(dateFromDb);
+        vetRepository.save(veterinarian);
+        return vetMapper.toResponse(veterinarian);
     }
 
     @Override

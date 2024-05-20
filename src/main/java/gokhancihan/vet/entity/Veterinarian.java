@@ -46,4 +46,7 @@ public class Veterinarian {
         this.availableDates.add(availableDate);
     }
 
+    public void removeAvailableDate(AvailableDate availableDate) {
+        this.availableDates.remove(availableDate);
+    }
 }

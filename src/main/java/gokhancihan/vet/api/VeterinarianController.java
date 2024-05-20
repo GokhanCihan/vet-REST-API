@@ -44,6 +44,12 @@ public class VeterinarianController {
         return veterinarianService.addAvailableDate(id, availableDateId);
     }
 
+    @PutMapping("/remove/{veterinarianId}/availableDate/{DateId}/")
+    public VeterinarianResponse removeFrom(@PathVariable("veterinarianId") Long id,
+                                          @PathVariable("DateId") Long availableDateId) {
+        return veterinarianService.removeAvailableDate(id, availableDateId);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id) {
         veterinarianService.delete(id);
