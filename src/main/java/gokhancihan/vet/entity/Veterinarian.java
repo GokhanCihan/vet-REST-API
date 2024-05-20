@@ -42,6 +42,9 @@ public class Veterinarian {
     @JsonManagedReference
     private Set<AvailableDate> availableDates;
 
+    @OneToMany(mappedBy = "veterinarian")
+    private Set<Appointment> appointments;
+
     public void addAvailableDate(AvailableDate availableDate) {
         this.availableDates.add(availableDate);
     }

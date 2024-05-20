@@ -1,13 +1,16 @@
 package gokhancihan.vet.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "animals")
 @RequiredArgsConstructor
@@ -41,4 +44,7 @@ public class Animal {
 
     @OneToMany(mappedBy = "animal")
     private List<Vaccine> vaccines;
+
+    @OneToMany(mappedBy = "animal")
+    private Set<Appointment> appointments;
 }
