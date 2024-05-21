@@ -2,6 +2,7 @@ package gokhancihan.vet.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -26,7 +27,8 @@ public class AvailableDate {
     @Column(name = "available_date", nullable = false, unique = true)
     private LocalDate availableDate;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "availableDates")
-    @JsonBackReference
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "availableDates")
     private Set<Veterinarian> veterinarians;
 }

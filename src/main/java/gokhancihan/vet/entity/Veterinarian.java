@@ -1,5 +1,6 @@
 package gokhancihan.vet.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,10 +40,10 @@ public class Veterinarian {
             joinColumns = {@JoinColumn(name = "veterinarian_id")},
             inverseJoinColumns = {@JoinColumn(name = "available_date_id")}
     )
-    @JsonManagedReference
     private Set<AvailableDate> availableDates;
 
     @OneToMany(mappedBy = "veterinarian")
+    @JsonIgnore
     private Set<Appointment> appointments;
 
     public void addAvailableDate(AvailableDate availableDate) {

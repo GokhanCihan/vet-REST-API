@@ -22,6 +22,6 @@ public class VeterinarianResponse {
 
     private String city;
 
-    private List<AvailableDate> availableDates;
+    private List<AvailableDateResponse> availableDates;
 
 }
