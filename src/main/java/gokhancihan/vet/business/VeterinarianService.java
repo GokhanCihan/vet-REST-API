@@ -1,6 +1,5 @@
 package gokhancihan.vet.business;
 
-import gokhancihan.vet.dto.request.AvailableDateRequest;
 import gokhancihan.vet.dto.request.VeterinarianRequest;
 import gokhancihan.vet.dto.response.VeterinarianResponse;
 import gokhancihan.vet.entity.AvailableDate;
@@ -42,7 +41,7 @@ public class VeterinarianService implements IVeterinarianService {
     @Override
     public List<VeterinarianResponse> getAllByAvailableDate(LocalDate date) {
         AvailableDate availableDate = availableDateRepository.findByAvailableDate(date)
-                .orElseThrow(() -> new NotFoundException("Available date not found!"));
+                .orElseThrow(() -> new NotFoundException("Available date not created!"));
         List<Veterinarian> veterinarians = new ArrayList<>();
         veterinarians.addAll(availableDate.getVeterinarians());
         return vetMapper.toResponses(veterinarians);

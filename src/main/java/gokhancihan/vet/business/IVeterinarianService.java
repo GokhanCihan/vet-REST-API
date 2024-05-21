@@ -1,6 +1,5 @@
 package gokhancihan.vet.business;
 
-import gokhancihan.vet.dto.request.AvailableDateRequest;
 import gokhancihan.vet.dto.request.VeterinarianRequest;
 import gokhancihan.vet.dto.response.VeterinarianResponse;
 
@@ -19,7 +18,7 @@ public interface IVeterinarianService {
 
     VeterinarianResponse update(Long id, VeterinarianRequest veterinarianRequest);
 
-    // Add existing date to existing veterinarian
+    // Add existing available date to existing veterinarian
     VeterinarianResponse addAvailableDate(Long veterinarianId, Long availableDateId);
 
     // Remove an available date from veterinarian

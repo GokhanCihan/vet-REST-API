@@ -32,7 +32,7 @@ public class VaccineController {
         return vaccineService.getAllByAnimalId(animalId);
     }
 
-    @GetMapping("/protection/{startDate}&{endDate}")
+    @GetMapping("/protection/startDate={startDate}&endDate={endDate}")
     public List<VaccineResponse> getAllByProtectionDate(
             @PathVariable("startDate") LocalDate startDate,
             @PathVariable("endDate") LocalDate endDate) {
