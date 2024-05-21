@@ -15,6 +15,7 @@ import gokhancihan.vet.utility.exception.NotFoundException;
 import gokhancihan.vet.utility.mapper.AppointmentMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,13 +50,30 @@ public class AppointmentService implements IAppointmentService {
     }
 
     @Override
+    public List<AppointmentResponse> getAllInRangeForVeterinarian(Long veterinarianId, LocalDate startDate, LocalDate endDate) {
+        return appointmentMapper.toResponses(appointmentRepo.findAllByVeterinarianIdAndAppointmentDateBetween(
+                veterinarianId,
+                startDate.atStartOfDay(),
+                endDate.atStartOfDay()));
+    }
+
+    @Override
+    public List<AppointmentResponse> getAllInRangeForAnimal(Long animalId, LocalDate startDate, LocalDate endDate) {
+        return appointmentMapper.toResponses(appointmentRepo.findAllByAnimalIdAndAppointmentDateBetween(
+                animalId,
+                startDate.atStartOfDay(),
+                endDate.atStartOfDay()
+        ));
+    }
+
+    @Override
     public AppointmentResponse create(AppointmentRequest request) {
-        // TODO: check veterinarian available date
         Optional<Animal> animalFromDb = animalRepo.findById(request.getAnimalId());
         Optional<Veterinarian> vetFromDb = veterinarianRepo.findById(request.getVeterinarianId());
         Optional<Appointment> appointmentForAnimal = appointmentRepo.findByAppointmentDateAndAnimalId(
                 request.getAppointmentDate(), request.getAnimalId());
-        Optional<AvailableDate> dateFromDb = availableDateRepository.findByAvailableDate(request.getAppointmentDate().toLocalDate());
+        Optional<AvailableDate> dateFromDb = availableDateRepository.findByAvailableDate(
+                request.getAppointmentDate().toLocalDate());
         Optional<Appointment> appointmentForVet = appointmentRepo.findByAppointmentDateAndVeterinarianId(
                 request.getAppointmentDate(), request.getVeterinarianId());
         if (!Helper.isExactHour(request.getAppointmentDate())) {
@@ -72,7 +90,7 @@ public class AppointmentService implements IAppointmentService {
             throw new NotFoundException("No available date created for this date!");
         }
         if (!dateFromDb.get().getVeterinarians().contains(vetFromDb.get())) {
-            throw new NotFoundException("Veterinarian with id = "  + request.getVeterinarianId() + " is not working on this date!");
+            throw new NotFoundException("Veterinarian with id = " + request.getVeterinarianId() + " is not working on this date!");
         }
         if (appointmentForAnimal.isPresent()) {
             throw new RuntimeException("There is another appointment at this time for the animal");
@@ -91,15 +109,14 @@ public class AppointmentService implements IAppointmentService {
 
     @Override
     public AppointmentResponse update(Long id, AppointmentRequest request) {
-        // TODO: check time if it is at in an exact hour only
-        if (!Helper.isExactHour(request.getAppointmentDate())) {
-            throw new RuntimeException("Each Appointment starts at the beginning of an hour. " +
-                    "Please provide a time accordingly.");
-        }
         // TODO: check for duplicates
         Optional<Animal> animalFromDb = animalRepo.findById(request.getAnimalId());
         Optional<Veterinarian> vetFromDb = veterinarianRepo.findById(request.getVeterinarianId());
         Optional<Appointment> appointmentFromDb = appointmentRepo.findById(id);
+        if (!Helper.isExactHour(request.getAppointmentDate())) {
+            throw new RuntimeException("Each Appointment starts at the beginning of an hour. " +
+                    "Please provide a time accordingly.");
+        }
         if (appointmentFromDb.isEmpty()) {
             throw new NotFoundException("Appointment with id = " + id + " not found!");
         }
