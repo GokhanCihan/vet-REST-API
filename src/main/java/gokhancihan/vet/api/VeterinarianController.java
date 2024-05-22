@@ -7,7 +7,6 @@ import gokhancihan.vet.dto.response.VeterinarianResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +17,11 @@ import java.util.List;
 @Tag(name = "Veterinarian Management")
 public class VeterinarianController {
 
-    @Autowired
-    private IVeterinarianService veterinarianService;
+    private final IVeterinarianService veterinarianService;
+
+    public VeterinarianController(IVeterinarianService veterinarianService) {
+        this.veterinarianService = veterinarianService;
+    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

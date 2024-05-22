@@ -11,7 +11,6 @@ import gokhancihan.vet.repository.VeterinarianRepository;
 import gokhancihan.vet.utility.exception.NotFoundException;
 import gokhancihan.vet.utility.exception.RedundantDataException;
 import gokhancihan.vet.utility.mapper.VeterinarianMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,12 +21,16 @@ import java.util.Optional;
 @Service
 public class VeterinarianService implements IVeterinarianService {
 
-    @Autowired
-    private VeterinarianRepository vetRepository;
-    @Autowired
-    private VeterinarianMapper vetMapper;
-    @Autowired
-    private AvailableDateRepository availableDateRepository;
+    private final VeterinarianRepository vetRepository;
+    private final VeterinarianMapper vetMapper;
+    private final AvailableDateRepository availableDateRepository;
+
+    public VeterinarianService(VeterinarianRepository vetRepository, VeterinarianMapper vetMapper,
+                               AvailableDateRepository availableDateRepository) {
+        this.vetRepository = vetRepository;
+        this.vetMapper = vetMapper;
+        this.availableDateRepository = availableDateRepository;
+    }
 
     @Override
     public VeterinarianResponse getById(Long id) {

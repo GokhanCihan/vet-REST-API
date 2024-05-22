@@ -6,7 +6,6 @@ import gokhancihan.vet.dto.response.VaccineResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +17,11 @@ import java.util.List;
 @Tag(name = "Vaccination Management")
 public class VaccineController {
 
-    @Autowired
-    private IVaccineService vaccineService;
+    private final IVaccineService vaccineService;
+
+    public VaccineController(IVaccineService vaccineService) {
+        this.vaccineService = vaccineService;
+    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

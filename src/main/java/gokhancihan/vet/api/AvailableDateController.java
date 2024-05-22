@@ -5,7 +5,6 @@ import gokhancihan.vet.dto.request.AvailableDateRequest;
 import gokhancihan.vet.dto.response.AvailableDateResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +15,11 @@ import java.util.List;
 @Tag(name = "Available Date Management")
 public class AvailableDateController {
 
-    @Autowired
-    public IAvailableDateService availableDateService;
+    public final IAvailableDateService availableDateService;
+
+    public AvailableDateController(IAvailableDateService availableDateService) {
+        this.availableDateService = availableDateService;
+    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

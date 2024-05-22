@@ -9,9 +9,7 @@ import gokhancihan.vet.repository.AnimalRepository;
 import gokhancihan.vet.repository.VaccineRepository;
 import gokhancihan.vet.utility.exception.BadRequestException;
 import gokhancihan.vet.utility.exception.NotFoundException;
-import gokhancihan.vet.utility.exception.RedundantDataException;
 import gokhancihan.vet.utility.mapper.VaccineMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,12 +19,15 @@ import java.util.Optional;
 @Service
 public class VaccineService implements IVaccineService {
 
-    @Autowired
-    private VaccineRepository vaccineRepository;
-    @Autowired
-    private AnimalRepository animalRepository;
-    @Autowired
-    private VaccineMapper vaccineMapper;
+    private final VaccineRepository vaccineRepository;
+    private final AnimalRepository animalRepository;
+    private final VaccineMapper vaccineMapper;
+
+    public VaccineService(VaccineRepository vaccineRepository, AnimalRepository animalRepository, VaccineMapper vaccineMapper) {
+        this.vaccineRepository = vaccineRepository;
+        this.animalRepository = animalRepository;
+        this.vaccineMapper = vaccineMapper;
+    }
 
     @Override
     public VaccineResponse getById(Long id) {

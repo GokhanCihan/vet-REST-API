@@ -5,11 +5,9 @@ import gokhancihan.vet.dto.request.AvailableDateRequest;
 import gokhancihan.vet.dto.response.AvailableDateResponse;
 import gokhancihan.vet.entity.AvailableDate;
 import gokhancihan.vet.repository.AvailableDateRepository;
-import gokhancihan.vet.repository.VeterinarianRepository;
 import gokhancihan.vet.utility.exception.NotFoundException;
 import gokhancihan.vet.utility.exception.RedundantDataException;
 import gokhancihan.vet.utility.mapper.AvailableDateMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,13 +15,13 @@ import java.util.*;
 @Service
 public class AvailableDateService implements IAvailableDateService {
 
-    @Autowired
-    private AvailableDateRepository dateRepository;
-    @Autowired
-    private AvailableDateMapper availableDateMapper;
-    @Autowired
-    private VeterinarianRepository veterinarianRepository;
+    private final AvailableDateRepository dateRepository;
+    private final AvailableDateMapper availableDateMapper;
 
+    public AvailableDateService(AvailableDateRepository dateRepository, AvailableDateMapper availableDateMapper) {
+        this.dateRepository = dateRepository;
+        this.availableDateMapper = availableDateMapper;
+    }
 
     @Override
     public AvailableDateResponse getById(Long id) {

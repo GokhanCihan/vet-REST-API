@@ -10,7 +10,6 @@ import gokhancihan.vet.utility.exception.RedundantDataException;
 import gokhancihan.vet.utility.mapper.AnimalMapper;
 import gokhancihan.vet.entity.Animal;
 import gokhancihan.vet.entity.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,14 +18,16 @@ import java.util.Optional;
 @Service
 public class AnimalService implements IAnimalService {
 
-    @Autowired
-    private AnimalRepository animalRepository;
+    private final AnimalRepository animalRepository;
+    private final CustomerRepository customerRepository;
+    private final AnimalMapper animalMapper;
 
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private AnimalMapper animalMapper;
+    public AnimalService(AnimalRepository animalRepository, CustomerRepository customerRepository,
+                         AnimalMapper animalMapper) {
+        this.animalRepository = animalRepository;
+        this.customerRepository = customerRepository;
+        this.animalMapper = animalMapper;
+    }
 
     @Override
     public AnimalResponse getById(Long id) {
