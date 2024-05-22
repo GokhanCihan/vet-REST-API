@@ -1,6 +1,7 @@
 package gokhancihan.vet.api;
 
 import gokhancihan.vet.business.IVeterinarianService;
+import gokhancihan.vet.dto.request.VeterinarianAvailableDateRequest;
 import gokhancihan.vet.dto.request.VeterinarianRequest;
 import gokhancihan.vet.dto.response.VeterinarianResponse;
 import jakarta.validation.Valid;
@@ -38,16 +39,14 @@ public class VeterinarianController {
         return veterinarianService.update(id, veterinarianRequest);
     }
 
-    @PutMapping("/add/{veterinarianId}/availableDate/{DateId}/")
-    public VeterinarianResponse createFor(@PathVariable("veterinarianId") Long id,
-                                           @PathVariable("DateId") Long availableDateId) {
-        return veterinarianService.addAvailableDate(id, availableDateId);
+    @PutMapping("/availableDate")
+    public VeterinarianResponse createFor(@RequestBody VeterinarianAvailableDateRequest vetDateRequest) {
+        return veterinarianService.addAvailableDate(vetDateRequest);
     }
 
-    @PutMapping("/remove/{veterinarianId}/availableDate/{DateId}/")
-    public VeterinarianResponse removeFrom(@PathVariable("veterinarianId") Long id,
-                                          @PathVariable("DateId") Long availableDateId) {
-        return veterinarianService.removeAvailableDate(id, availableDateId);
+    @DeleteMapping("/availableDate/")
+    public VeterinarianResponse removeFrom(@RequestBody VeterinarianAvailableDateRequest vetDateRequest) {
+        return veterinarianService.removeAvailableDate(vetDateRequest);
     }
 
     @DeleteMapping("/{id}")

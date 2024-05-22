@@ -1,5 +1,6 @@
 package gokhancihan.vet.business;
 
+import gokhancihan.vet.dto.request.VeterinarianAvailableDateRequest;
 import gokhancihan.vet.dto.request.VeterinarianRequest;
 import gokhancihan.vet.dto.response.VeterinarianResponse;
 import gokhancihan.vet.entity.AvailableDate;
@@ -72,10 +73,10 @@ public class VeterinarianService implements IVeterinarianService {
     }
 
     @Override
-    public VeterinarianResponse addAvailableDate(Long veterinarianId, Long availableDateId) {
-        AvailableDate dateFromDb = availableDateRepository.findById(availableDateId)
+    public VeterinarianResponse addAvailableDate(VeterinarianAvailableDateRequest request) {
+        AvailableDate dateFromDb = availableDateRepository.findById(request.getAvailableDateId())
                 .orElseThrow(() -> new NotFoundException("Available date not found!"));
-        Veterinarian veterinarian = vetRepository.findById(veterinarianId)
+        Veterinarian veterinarian = vetRepository.findById(request.getVeterinarianId())
                 .orElseThrow(() -> new NotFoundException("Available date not found!"));
         veterinarian.addAvailableDate(dateFromDb);
         vetRepository.save(veterinarian);
@@ -83,10 +84,10 @@ public class VeterinarianService implements IVeterinarianService {
     }
 
     @Override
-    public VeterinarianResponse removeAvailableDate(Long veterinarianId, Long availableDateId) {
-        AvailableDate dateFromDb = availableDateRepository.findById(availableDateId)
+    public VeterinarianResponse removeAvailableDate(VeterinarianAvailableDateRequest request) {
+        AvailableDate dateFromDb = availableDateRepository.findById(request.getAvailableDateId())
                 .orElseThrow(() -> new NotFoundException("Available date not found!"));
-        Veterinarian veterinarian = vetRepository.findById(veterinarianId)
+        Veterinarian veterinarian = vetRepository.findById(request.getVeterinarianId())
                 .orElseThrow(() -> new NotFoundException("Available date not found!"));
         veterinarian.removeAvailableDate(dateFromDb);
         vetRepository.save(veterinarian);
