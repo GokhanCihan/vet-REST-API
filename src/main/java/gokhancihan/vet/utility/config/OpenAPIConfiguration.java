@@ -23,9 +23,9 @@ public class OpenAPIConfiguration {
         myContact.setEmail("cihangokhan@gmail.com");
 
         Info information = new Info()
-                .title("Veterinary Management System API")
+                .title("vet REST API")
                 .version("1.0")
-                .description("vet REST API, created with Spring Boot, exposes endpoints of a veterinary management system")
+                .description("vet REST API created with Spring Boot, exposes endpoints of a veterinary management system")
                 .contact(myContact);
         return new OpenAPI().info(information).servers(List.of(server));
     }
