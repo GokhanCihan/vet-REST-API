@@ -31,7 +31,7 @@ public class AnimalController {
         return this.animalService.getAll();
     }
 
-    @GetMapping("/customerId={customerId}")
+    @GetMapping("/all/customerId={customerId}")
     public List<AnimalResponse> getAllByCustomerId(@PathVariable("customerId") Long customerId) {
         return this.animalService.getAllByCustomerId(customerId);
     }
