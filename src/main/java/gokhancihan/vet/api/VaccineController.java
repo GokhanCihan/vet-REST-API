@@ -27,7 +27,7 @@ public class VaccineController {
         return vaccineService.getAll();
     }
 
-    @GetMapping("/animalId={animalId}")
+    @GetMapping("/all/animalId={animalId}")
     public List<VaccineResponse> getAllByAnimalId(@PathVariable("animalId") Long animalId) {
         return vaccineService.getAllByAnimalId(animalId);
     }

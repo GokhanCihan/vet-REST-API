@@ -38,7 +38,7 @@ public class VeterinarianController {
         return veterinarianService.update(id, veterinarianRequest);
     }
 
-    @PutMapping("/{veterinarianId}/availableDate/{DateId}/")
+    @PutMapping("/add/{veterinarianId}/availableDate/{DateId}/")
     public VeterinarianResponse createFor(@PathVariable("veterinarianId") Long id,
                                            @PathVariable("DateId") Long availableDateId) {
         return veterinarianService.addAvailableDate(id, availableDateId);
