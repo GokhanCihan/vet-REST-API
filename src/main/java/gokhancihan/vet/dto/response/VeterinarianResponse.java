@@ -1,12 +1,13 @@
 package gokhancihan.vet.dto.response;
 
-import gokhancihan.vet.entity.AvailableDate;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class VeterinarianResponse {
 

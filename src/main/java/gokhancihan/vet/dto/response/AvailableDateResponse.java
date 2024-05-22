@@ -1,11 +1,13 @@
 package gokhancihan.vet.dto.response;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class AvailableDateResponse {
 

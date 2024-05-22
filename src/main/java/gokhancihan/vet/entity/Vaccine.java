@@ -1,15 +1,14 @@
 package gokhancihan.vet.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "vaccines")
 @RequiredArgsConstructor

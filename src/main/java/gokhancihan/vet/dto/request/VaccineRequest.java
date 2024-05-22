@@ -1,14 +1,16 @@
 package gokhancihan.vet.dto.request;
 
-import gokhancihan.vet.entity.Animal;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class VaccineRequest {
 
