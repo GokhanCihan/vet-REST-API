@@ -1,5 +1,6 @@
-package gokhancihan.vet.business;
+package gokhancihan.vet.business.impl;
 
+import gokhancihan.vet.business.IVeterinarianService;
 import gokhancihan.vet.dto.request.VeterinarianAvailableDateRequest;
 import gokhancihan.vet.dto.request.VeterinarianRequest;
 import gokhancihan.vet.dto.response.VeterinarianResponse;
@@ -31,7 +32,7 @@ public class VeterinarianService implements IVeterinarianService {
     @Override
     public VeterinarianResponse getById(Long id) {
         return vetMapper.toResponse(vetRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Veterinarian with " + id + " not found!")));
+                .orElseThrow(() -> new NotFoundException("Veterinarian with id = " + id + " not found!")));
     }
 
     @Override
@@ -42,7 +43,7 @@ public class VeterinarianService implements IVeterinarianService {
     @Override
     public List<VeterinarianResponse> getAllByAvailableDate(LocalDate date) {
         AvailableDate availableDate = availableDateRepository.findByAvailableDate(date)
-                .orElseThrow(() -> new NotFoundException("Available date not created!"));
+                .orElseThrow(() -> new NotFoundException("Available date not created. Create an available date first!"));
         List<Veterinarian> veterinarians = new ArrayList<>();
         veterinarians.addAll(availableDate.getVeterinarians());
         return vetMapper.toResponses(veterinarians);
@@ -57,7 +58,7 @@ public class VeterinarianService implements IVeterinarianService {
         Veterinarian vetToSave = vetMapper.fromRequest(vetRequest);
         vetRepository.save(vetToSave);
         Veterinarian savedVetFromDb = vetRepository.findByPhoneAndMail(vetRequest.getPhone(), vetRequest.getMail())
-                .orElseThrow(() -> new NotFoundException("Couldn't fetch saved data or save unsuccessful!"));
+                .orElseThrow(() -> new NotFoundException("Couldn't fetch saved data or save was unsuccessful!"));
         return vetMapper.toResponse(savedVetFromDb);
     }
 
@@ -75,9 +76,9 @@ public class VeterinarianService implements IVeterinarianService {
     @Override
     public VeterinarianResponse addAvailableDate(VeterinarianAvailableDateRequest request) {
         AvailableDate dateFromDb = availableDateRepository.findById(request.getAvailableDateId())
-                .orElseThrow(() -> new NotFoundException("Available date not found!"));
+                .orElseThrow(() -> new NotFoundException("Available date data with id = " + request.getAvailableDateId() + " not found!"));
         Veterinarian veterinarian = vetRepository.findById(request.getVeterinarianId())
-                .orElseThrow(() -> new NotFoundException("Available date not found!"));
+                .orElseThrow(() -> new NotFoundException("Veterinarian data with id =" + request.getVeterinarianId() + " not found!"));
         veterinarian.addAvailableDate(dateFromDb);
         vetRepository.save(veterinarian);
         return vetMapper.toResponse(veterinarian);

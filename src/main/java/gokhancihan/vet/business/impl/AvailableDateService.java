@@ -1,5 +1,6 @@
-package gokhancihan.vet.business;
+package gokhancihan.vet.business.impl;
 
+import gokhancihan.vet.business.IAvailableDateService;
 import gokhancihan.vet.dto.request.AvailableDateRequest;
 import gokhancihan.vet.dto.response.AvailableDateResponse;
 import gokhancihan.vet.entity.AvailableDate;
@@ -27,7 +28,7 @@ public class AvailableDateService implements IAvailableDateService {
     @Override
     public AvailableDateResponse getById(Long id) {
         return availableDateMapper.toResponse(dateRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("No date with id = " + id + " found!")));
+                .orElseThrow(() -> new NotFoundException("Available date with id = " + id + " not found!")));
     }
 
     @Override
@@ -48,7 +49,7 @@ public class AvailableDateService implements IAvailableDateService {
         Optional<AvailableDate> savedDateFromDb = dateRepository
                 .findByAvailableDate(availableDateRequest.getAvailableDate());
         if (savedDateFromDb.isEmpty()) {
-            throw new RuntimeException("Couldn't fetch saved date or save unsuccessful!");
+            throw new RuntimeException("Couldn't fetch available date data or save unsuccessful!");
         }
         return availableDateMapper.toResponse(savedDateFromDb.get());
     }
@@ -57,7 +58,7 @@ public class AvailableDateService implements IAvailableDateService {
     public AvailableDateResponse update(Long id, AvailableDateRequest availableDateRequest) {
         Optional<AvailableDate> dateFromDb = dateRepository.findById(id);
         if (dateFromDb.isEmpty()) {
-            throw new NotFoundException("No date with id = " + id + " found!");
+            throw new NotFoundException("Available date data with id = " + id + " not found!");
         }
         AvailableDate availableDate = dateFromDb.get();
         availableDateMapper.update(availableDate, availableDateRequest);
@@ -65,7 +66,7 @@ public class AvailableDateService implements IAvailableDateService {
         Optional<AvailableDate> updatedDateFromDb = dateRepository
                 .findByAvailableDate(availableDateRequest.getAvailableDate());
         if (updatedDateFromDb.isEmpty()) {
-            throw new RuntimeException("Couldn't fetch date or update unsuccessful!");
+            throw new RuntimeException("Couldn't fetch available date data or update unsuccessful!");
         }
         availableDate.setId(updatedDateFromDb.get().getId());
         return availableDateMapper.toResponse(availableDate);
@@ -74,6 +75,6 @@ public class AvailableDateService implements IAvailableDateService {
     @Override
     public void delete(Long id) {
         dateRepository.delete(dateRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("No date with id = " + id + " found!")));
+                .orElseThrow(() -> new NotFoundException("Available date with id = " + id + " not found!")));
     }
 }

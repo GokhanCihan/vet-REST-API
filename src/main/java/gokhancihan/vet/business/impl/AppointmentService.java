@@ -1,5 +1,6 @@
-package gokhancihan.vet.business;
+package gokhancihan.vet.business.impl;
 
+import gokhancihan.vet.business.IAppointmentService;
 import gokhancihan.vet.dto.request.AppointmentRequest;
 import gokhancihan.vet.dto.response.AppointmentResponse;
 import gokhancihan.vet.entity.Animal;
@@ -11,6 +12,8 @@ import gokhancihan.vet.repository.AppointmentRepository;
 import gokhancihan.vet.repository.AvailableDateRepository;
 import gokhancihan.vet.repository.VeterinarianRepository;
 import gokhancihan.vet.utility.Helper;
+import gokhancihan.vet.utility.exception.BadRequestException;
+import gokhancihan.vet.utility.exception.InvalidRequestParameterException;
 import gokhancihan.vet.utility.exception.NotFoundException;
 import gokhancihan.vet.utility.mapper.AppointmentMapper;
 import org.springframework.stereotype.Service;
@@ -77,7 +80,7 @@ public class AppointmentService implements IAppointmentService {
         Optional<Appointment> appointmentForVet = appointmentRepo.findByAppointmentDateAndVeterinarianId(
                 request.getAppointmentDate(), request.getVeterinarianId());
         if (!Helper.isExactHour(request.getAppointmentDate())) {
-            throw new RuntimeException("Each Appointment starts at the beginning of an hour. " +
+            throw new InvalidRequestParameterException("Each Appointment starts at the beginning of an hour. " +
                     "Please provide a time accordingly.");
         }
         if (animalFromDb.isEmpty()) {
@@ -93,10 +96,10 @@ public class AppointmentService implements IAppointmentService {
             throw new NotFoundException("Veterinarian with id = " + request.getVeterinarianId() + " is not working on this date!");
         }
         if (appointmentForAnimal.isPresent()) {
-            throw new RuntimeException("There is another appointment at this time for the animal");
+            throw new BadRequestException("There is another appointment at this time for the animal");
         }
         if (appointmentForVet.isPresent()) {
-            throw new RuntimeException("There is another appointment at this time for the veterinarian");
+            throw new BadRequestException("There is another appointment at this time for the veterinarian");
         }
         Appointment appointmentToSave = appointmentMapper.fromRequest(request);
         appointmentRepo.save(appointmentToSave);
@@ -114,7 +117,7 @@ public class AppointmentService implements IAppointmentService {
         Optional<Veterinarian> vetFromDb = veterinarianRepo.findById(request.getVeterinarianId());
         Optional<Appointment> appointmentFromDb = appointmentRepo.findById(id);
         if (!Helper.isExactHour(request.getAppointmentDate())) {
-            throw new RuntimeException("Each Appointment starts at the beginning of an hour. " +
+            throw new InvalidRequestParameterException("Each Appointment starts at the beginning of an hour. " +
                     "Please provide a time accordingly.");
         }
         if (appointmentFromDb.isEmpty()) {
@@ -127,9 +130,9 @@ public class AppointmentService implements IAppointmentService {
             throw new NotFoundException("Veterinarian with id = " + request.getVeterinarianId() + " not found!");
         }
         appointmentRepo.findByAppointmentDateAndAnimalId(request.getAppointmentDate(), request.getAnimalId())
-                .orElseThrow(() -> new RuntimeException("There is an appointment at this time for the animal"));
+                .orElseThrow(() -> new BadRequestException("There is an appointment at this time for the animal"));
         appointmentRepo.findByAppointmentDateAndVeterinarianId(request.getAppointmentDate(), request.getVeterinarianId())
-                .orElseThrow(() -> new RuntimeException("There is an appointment at this time for the veterinarian"));
+                .orElseThrow(() -> new BadRequestException("There is an appointment at this time for the veterinarian"));
         Appointment appointment = appointmentFromDb.get();
         appointmentMapper.update(appointment, request);
         appointmentRepo.save(appointment);

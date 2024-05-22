@@ -1,5 +1,6 @@
-package gokhancihan.vet.business;
+package gokhancihan.vet.business.impl;
 
+import gokhancihan.vet.business.IAnimalService;
 import gokhancihan.vet.dto.request.AnimalRequest;
 import gokhancihan.vet.dto.response.AnimalResponse;
 import gokhancihan.vet.repository.AnimalRepository;
@@ -69,7 +70,7 @@ public class AnimalService implements IAnimalService {
         Optional<Animal> savedAnimalFromDb = animalRepository.findByNameAndSpeciesAndDateOfBirth(
                 animalRequest.getName(), animalRequest.getSpecies(), animalRequest.getDateOfBirth());
         if (savedAnimalFromDb.isEmpty()) {
-            throw new NotFoundException("Saved animal couldn't found or save failed");
+            throw new RuntimeException("Saved animal couldn't found");
         }
         return animalMapper.toResponse(savedAnimalFromDb.get());
     }
@@ -79,7 +80,7 @@ public class AnimalService implements IAnimalService {
         Optional<Animal> animalFromDb = animalRepository.findById(id);
         Optional<Customer> customerFromDb = customerRepository.findById(animalRequest.getCustomerId());
         if (animalFromDb.isEmpty()) {
-            throw new NotFoundException("No animal with id = " + id + " found!");
+            throw new NotFoundException("Animal with id = " + id + " not found!");
         }
         if (customerFromDb.isEmpty()) {
             throw new NotFoundException("Customer with id = " + animalRequest.getCustomerId() + "not found!");
@@ -95,7 +96,7 @@ public class AnimalService implements IAnimalService {
     public void delete(Long id) {
         Optional<Animal> animalFromDb = animalRepository.findById(id);
         if (animalFromDb.isEmpty()) {
-            throw new NotFoundException("No animal with id = " + id + " found!");
+            throw new NotFoundException("Animal with id = " + id + " not found!");
         }
         animalRepository.delete(animalFromDb.get());
     }

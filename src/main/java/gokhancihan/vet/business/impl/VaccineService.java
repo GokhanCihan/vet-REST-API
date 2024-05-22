@@ -1,11 +1,13 @@
-package gokhancihan.vet.business;
+package gokhancihan.vet.business.impl;
 
+import gokhancihan.vet.business.IVaccineService;
 import gokhancihan.vet.dto.request.VaccineRequest;
 import gokhancihan.vet.dto.response.VaccineResponse;
 import gokhancihan.vet.entity.Animal;
 import gokhancihan.vet.entity.Vaccine;
 import gokhancihan.vet.repository.AnimalRepository;
 import gokhancihan.vet.repository.VaccineRepository;
+import gokhancihan.vet.utility.exception.BadRequestException;
 import gokhancihan.vet.utility.exception.NotFoundException;
 import gokhancihan.vet.utility.exception.RedundantDataException;
 import gokhancihan.vet.utility.mapper.VaccineMapper;
@@ -56,10 +58,10 @@ public class VaccineService implements IVaccineService {
                         vaccineRequest.getProtectionStartDate(), vaccineRequest.getProtectionStartDate()
                 );
         if (animalFromDb.isEmpty()) {
-            throw new NotFoundException("Animal with id = " + vaccineRequest.getAnimalId() + " not found");
+            throw new NotFoundException("Animal data with id = " + vaccineRequest.getAnimalId() + " not found");
         }
         if (vaccineFromDb.isPresent()) {
-            throw new RedundantDataException(
+            throw new BadRequestException(
                     "Animal is already protected by the " + vaccineRequest.getName() + "-" + vaccineRequest.getCode() +
                             " until " + vaccineRequest.getProtectionEndDate());
         }
@@ -72,7 +74,7 @@ public class VaccineService implements IVaccineService {
                         vaccineRequest.getProtectionStartDate(), vaccineRequest.getProtectionEndDate()
                 );
         if (savedVaccineFromDb.isEmpty()) {
-            throw new NotFoundException("Saved vaccine couldn't found or save failed");
+            throw new NotFoundException("Saved vaccine couldn't found or save was unsuccessful");
         }
         return vaccineMapper.toResponse(savedVaccineFromDb.get());
     }
@@ -93,7 +95,7 @@ public class VaccineService implements IVaccineService {
             throw new NotFoundException("Animal with id = " + vaccineRequest.getAnimalId() + " not found!");
         }
         if (filteredVaccineFromDb.isPresent()) {
-            throw new RedundantDataException(
+            throw new BadRequestException(
                     "Animal is already protected by the " + vaccineRequest.getName() + "-" + vaccineRequest.getCode() +
                             " until " + vaccineRequest.getProtectionEndDate());
         }

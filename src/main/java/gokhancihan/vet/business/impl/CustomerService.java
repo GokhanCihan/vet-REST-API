@@ -1,6 +1,6 @@
-package gokhancihan.vet.business;
+package gokhancihan.vet.business.impl;
 
-import gokhancihan.vet.api.CustomerController;
+import gokhancihan.vet.business.ICustomerService;
 import gokhancihan.vet.dto.request.CustomerRequest;
 import gokhancihan.vet.dto.response.CustomerResponse;
 import gokhancihan.vet.repository.CustomerRepository;
@@ -26,13 +26,13 @@ public class CustomerService implements ICustomerService {
     @Override
     public CustomerResponse getById(Long id) {
         return customerMapper.toResponse(customerRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("No customer with id = " + id + " found!")));
+                .orElseThrow(() -> new NotFoundException("Customer data with id = " + id + " not found!")));
     }
 
     @Override
     public CustomerResponse getByName(String name) {
         return customerMapper.toResponse(customerRepository.findByName(name)
-                .orElseThrow(() -> new NotFoundException("No customer with name = " + name + " found!")));
+                .orElseThrow(() -> new NotFoundException("Customer data with name = " + name + " not found!")));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class CustomerService implements ICustomerService {
         Optional<Customer> savedCustomerFromDb = customerRepository
                 .findByNameAndMail(customerRequest.getName(), customerRequest.getMail());
         if (savedCustomerFromDb.isEmpty()) {
-            throw new RuntimeException("Couldn't fetch saved customer or save unsuccessful!");
+            throw new RuntimeException("Couldn't fetch customer data or save was unsuccessful!");
         }
         return customerMapper.toResponse(savedCustomerFromDb.get());
     }
@@ -61,7 +61,7 @@ public class CustomerService implements ICustomerService {
     public CustomerResponse update(Long id, CustomerRequest customerRequest) {
         Optional<Customer> customerFromDb = customerRepository.findById(id);
         if (customerFromDb.isEmpty()) {
-            throw new NotFoundException("No customer with id = " + id + " found!");
+            throw new NotFoundException("Customer data with id = " + id + " not found!");
         }
         Customer customer = customerFromDb.get();
         customerMapper.update(customer, customerRequest);
@@ -69,7 +69,7 @@ public class CustomerService implements ICustomerService {
         Optional<Customer> updatedCustomerFromDb = customerRepository
                 .findByNameAndMail(customerRequest.getName(), customerRequest.getMail());
         if (updatedCustomerFromDb.isEmpty()) {
-            throw new RuntimeException("Couldn't fetch saved customer or update unsuccessful!");
+            throw new RuntimeException("Couldn't fetch customer data or update was unsuccessful!");
         }
         customer.setId(updatedCustomerFromDb.get().getId());
         return customerMapper.toResponse(customer);
@@ -79,7 +79,7 @@ public class CustomerService implements ICustomerService {
     public void delete(Long id) {
         Optional<Customer> customerFromDb = customerRepository.findById(id);
         if (customerFromDb.isEmpty()) {
-            throw new NotFoundException("No customer with id = " + id + " found!");
+            throw new NotFoundException("Customer data with id = " + id + " not found!");
         }
         customerRepository.delete(customerFromDb.get());
     }
