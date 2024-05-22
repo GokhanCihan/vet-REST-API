@@ -11,7 +11,7 @@ public interface IAnimalService {
 
     AnimalResponse getByName(String name);
 
-    List<AnimalResponse> getAllByCustomerName(String CustomerName);
+    List<AnimalResponse> getAllByCustomerId(Long customerId);
 
     List<AnimalResponse> getAll();
 

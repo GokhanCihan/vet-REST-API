@@ -40,10 +40,10 @@ public class AnimalService implements IAnimalService {
     }
 
     @Override
-    public List<AnimalResponse> getAllByCustomerName(String customerName) {
-        Optional<Customer> customerFromDb = customerRepository.findByName(customerName);
+    public List<AnimalResponse> getAllByCustomerId(Long customerId) {
+        Optional<Customer> customerFromDb = customerRepository.findByCustomerId(customerId);
         if (customerFromDb.isEmpty()) {
-            throw new NotFoundException("No customer with name = " + customerName + " found!");
+            throw new NotFoundException("No customer with id = " + customerId + " found!");
         }
         return animalMapper.toResponses(animalRepository.findByCustomerId(customerFromDb.get().getId()));
     }
