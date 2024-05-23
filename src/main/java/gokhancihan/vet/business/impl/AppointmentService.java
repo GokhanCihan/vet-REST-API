@@ -93,7 +93,8 @@ public class AppointmentService implements IAppointmentService {
             throw new NotFoundException("No available date created for this date!");
         }
         if (!dateFromDb.get().getVeterinarians().contains(vetFromDb.get())) {
-            throw new NotFoundException("Veterinarian with id = " + request.getVeterinarianId() + " is not working on this date!");
+            throw new NotFoundException("Veterinarian with id = " + request.getVeterinarianId() +
+                    " is not working on this date!");
         }
         if (appointmentForAnimal.isPresent()) {
             throw new BadRequestException("There is another appointment at this time for the animal");
@@ -107,6 +108,9 @@ public class AppointmentService implements IAppointmentService {
                 .findByAppointmentDateAndAnimalIdAndVeterinarianId(request.getAppointmentDate(), request.getAnimalId(),
                         request.getVeterinarianId())
                 .orElseThrow(() -> new RuntimeException("Couldn't fetch saved data!"));
+        System.out.println(savedAppointment.getAnimal().getName());
+        savedAppointment.setAnimal(animalFromDb.get());
+        savedAppointment.setVeterinarian(vetFromDb.get());
         return appointmentMapper.toResponse(savedAppointment);
     }
 

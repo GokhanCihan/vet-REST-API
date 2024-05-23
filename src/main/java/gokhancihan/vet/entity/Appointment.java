@@ -18,7 +18,7 @@ public class Appointment {
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private LocalDateTime appointmentDate;
 
     @ManyToOne

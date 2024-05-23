@@ -1,5 +1,6 @@
 package gokhancihan.vet.dto.request;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Getter
 @RequestMapping
 public class VeterinarianAvailableDateRequest {
+    @NotNull
     private Long veterinarianId;
+    @NotNull
     private Long availableDateId;
 }

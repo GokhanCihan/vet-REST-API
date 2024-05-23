@@ -56,14 +56,14 @@ public class VeterinarianController {
     @PutMapping("/availableDate")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Assign an available date to a veterinarian")
-    public VeterinarianResponse createFor(@RequestBody VeterinarianAvailableDateRequest vetDateRequest) {
+    public VeterinarianResponse createFor(@Valid @RequestBody VeterinarianAvailableDateRequest vetDateRequest) {
         return veterinarianService.addAvailableDate(vetDateRequest);
     }
 
     @DeleteMapping("/availableDate/")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Remove an available date from a veterinarian")
-    public VeterinarianResponse removeFrom(@RequestBody VeterinarianAvailableDateRequest vetDateRequest) {
+    public VeterinarianResponse removeFrom(@Valid @RequestBody VeterinarianAvailableDateRequest vetDateRequest) {
         return veterinarianService.removeAvailableDate(vetDateRequest);
     }
 

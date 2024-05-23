@@ -1,6 +1,7 @@
 package gokhancihan.vet.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class Customer {
     @Column(nullable = false, unique = true)
     private String phone;
 
+    @Email
     @Column(nullable = false, unique = true)
     private String mail;
 

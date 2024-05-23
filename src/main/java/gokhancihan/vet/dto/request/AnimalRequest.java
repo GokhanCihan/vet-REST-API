@@ -36,6 +36,6 @@ public class AnimalRequest {
     @NotNull
     private LocalDate dateOfBirth;
 
-    @NotNull(message = "customerId field required!")
+    @NotNull
     private Long customerId;
 }

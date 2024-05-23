@@ -19,6 +19,8 @@ public interface AppointmentMapper {
     @Mapping(target = "animal.customer", ignore = true)
     @Mapping(target = "animal.vaccines", ignore = true)
     @Mapping(target = "animal.appointments", ignore = true)
+    @Mapping(target = "animal", source = "animal")
+    @Mapping(target = "veterinarian", source = "veterinarian")
     AppointmentResponse toResponse(Appointment appointment);
 
     @Mapping(target = "animal.id", source = "animalId")
