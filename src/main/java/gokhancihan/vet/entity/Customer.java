@@ -34,6 +34,6 @@ public class Customer {
     @Column(nullable = false)
     private String city;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Animal> animals;
 }

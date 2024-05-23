@@ -32,7 +32,7 @@ public class Vaccine {
     @Temporal(TemporalType.DATE)
     private LocalDate protectionEndDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "animal_id", referencedColumnName = "id")
     private Animal animal;
 

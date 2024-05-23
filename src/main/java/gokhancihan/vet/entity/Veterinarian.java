@@ -41,7 +41,7 @@ public class Veterinarian {
     )
     private Set<AvailableDate> availableDates;
 
-    @OneToMany(mappedBy = "veterinarian")
+    @OneToMany(mappedBy = "veterinarian", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonIgnore
     private Set<Appointment> appointments;
 

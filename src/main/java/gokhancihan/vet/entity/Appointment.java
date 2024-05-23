@@ -21,11 +21,11 @@ public class Appointment {
     @Column(nullable = false)
     private LocalDateTime appointmentDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "veterinarian_id", referencedColumnName = "id")
     private Veterinarian veterinarian;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "animal_id", referencedColumnName = "id")
     private Animal animal;
 }

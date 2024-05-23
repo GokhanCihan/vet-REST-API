@@ -42,7 +42,7 @@ public class Animal {
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "animal")
+    @OneToMany(mappedBy = "animal", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Vaccine> vaccines;
 
     @OneToMany(mappedBy = "animal")
