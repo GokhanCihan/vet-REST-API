@@ -1,6 +1,6 @@
-package gokhancihan.vet.api;
+package gokhancihan.vet.controller;
 
-import gokhancihan.vet.business.IAvailableDateService;
+import gokhancihan.vet.service.IAvailableDateService;
 import gokhancihan.vet.dto.request.AvailableDateRequest;
 import gokhancihan.vet.dto.response.AvailableDateResponse;
 import io.swagger.v3.oas.annotations.Operation;

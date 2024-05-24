@@ -1,4 +1,4 @@
-package gokhancihan.vet.business;
+package gokhancihan.vet.service;
 
 import gokhancihan.vet.dto.request.AppointmentRequest;
 import gokhancihan.vet.dto.response.AppointmentResponse;

@@ -1,6 +1,6 @@
-package gokhancihan.vet.api;
+package gokhancihan.vet.controller;
 
-import gokhancihan.vet.business.IVaccineService;
+import gokhancihan.vet.service.IVaccineService;
 import gokhancihan.vet.dto.request.VaccineRequest;
 import gokhancihan.vet.dto.response.VaccineResponse;
 import io.swagger.v3.oas.annotations.Operation;

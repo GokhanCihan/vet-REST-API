@@ -1,6 +1,6 @@
-package gokhancihan.vet.api;
+package gokhancihan.vet.controller;
 
-import gokhancihan.vet.business.IVeterinarianService;
+import gokhancihan.vet.service.IVeterinarianService;
 import gokhancihan.vet.dto.request.VeterinarianAvailableDateRequest;
 import gokhancihan.vet.dto.request.VeterinarianRequest;
 import gokhancihan.vet.dto.response.VeterinarianResponse;

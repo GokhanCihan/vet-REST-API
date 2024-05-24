@@ -1,6 +1,6 @@
-package gokhancihan.vet.business.impl;
+package gokhancihan.vet.service.impl;
 
-import gokhancihan.vet.business.IAnimalService;
+import gokhancihan.vet.service.IAnimalService;
 import gokhancihan.vet.dto.request.AnimalRequest;
 import gokhancihan.vet.dto.response.AnimalResponse;
 import gokhancihan.vet.repository.AnimalRepository;

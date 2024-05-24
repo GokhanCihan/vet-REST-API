@@ -1,6 +1,6 @@
-package gokhancihan.vet.business.impl;
+package gokhancihan.vet.service.impl;
 
-import gokhancihan.vet.business.IAvailableDateService;
+import gokhancihan.vet.service.IAvailableDateService;
 import gokhancihan.vet.dto.request.AvailableDateRequest;
 import gokhancihan.vet.dto.response.AvailableDateResponse;
 import gokhancihan.vet.entity.AvailableDate;
