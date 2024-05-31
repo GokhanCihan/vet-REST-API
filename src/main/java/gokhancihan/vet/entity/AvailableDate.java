@@ -2,7 +2,6 @@ package gokhancihan.vet.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -12,7 +11,6 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "available_dates")
-@RequiredArgsConstructor
 public class AvailableDate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

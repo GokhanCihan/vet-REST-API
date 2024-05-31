@@ -3,7 +3,6 @@ package gokhancihan.vet.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "customers")
-@RequiredArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

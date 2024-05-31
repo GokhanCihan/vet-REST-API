@@ -3,7 +3,6 @@ package gokhancihan.vet.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
@@ -12,7 +11,6 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "veterinarians")
-@RequiredArgsConstructor
 public class Veterinarian {
 
     @Id
